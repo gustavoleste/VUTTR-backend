@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1560230636022" clover="3.2.0">
-  <project timestamp="1560230636023" name="All files">
-    <metrics statements="22" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="23" coveredelements="22" complexity="0" loc="22" ncloc="22" packages="4" files="6" classes="6"/>
+<coverage generated="1560238981163" clover="3.2.0">
+  <project timestamp="1560238981163" name="All files">
+    <metrics statements="30" coveredstatements="29" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2" elements="32" coveredelements="31" complexity="0" loc="30" ncloc="30" packages="4" files="7" classes="7"/>
     <package name="src">
-      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="config.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/config.js">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+      </file>
+      <file name="server.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/server.js">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.database">
