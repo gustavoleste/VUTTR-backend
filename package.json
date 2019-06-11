@@ -16,6 +16,10 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --watchAll --collect-coverage"
+  },
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "mongoose": "^5.5.14"
   }
 }
