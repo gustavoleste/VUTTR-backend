@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tools Model should create a new tool 1`] = `
+Object {
+  "__v": 0,
+  "_id": "4ceda7b37085d444ec1bec64",
+  "createdAt": 2019-05-28T21:28:37.290Z,
+  "description": "Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.",
+  "link": "https://github.com/typicode/hotel",
+  "tags": Array [
+    "node",
+    "organizing",
+    "webapps",
+    "domain",
+    "developer",
+    "https",
+    "proxy",
+  ],
+  "title": "hotel",
+  "updatedAt": 2019-05-28T21:28:37.290Z,
+}
+`;
+
+exports[`Tools Model should not create a empty tool 1`] = `[ValidationError: Tools validation failed: description: Path \`description\` is required., link: Path \`link\` is required., title: Path \`title\` is required.]`;
+
+exports[`Tools Model should not create a tool without the description field set 1`] = `[ReferenceError: description is not defined]`;
+
+exports[`Tools Model should not create a tool without the link field set 1`] = `[ReferenceError: link is not defined]`;
+
+exports[`Tools Model should not create a tool without the tags field set 1`] = `[ReferenceError: tags is not defined]`;
+
+exports[`Tools Model should not create a tool without the title field set 1`] = `[ReferenceError: title is not defined]`;
