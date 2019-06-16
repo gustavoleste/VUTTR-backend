@@ -1,12 +1,57 @@
 require("dotenv").config();
 const request = require("supertest");
 const server = require("../src/server");
+const { databaseURL } = require("../src/config");
+const { arrayOfTools, singleTool } = require("../src/helpers/index");
+const { connectDatabase, Tools } = require("../src/database/index");
 
 describe("Server", () => {
-  describe("Test the root path", () => {
-    it("should response the GET method", async () => {
-      const response = await request(server).get("/");
-      expect(response.statusCode).toBe(200);
+  beforeAll(async () => {
+    await connectDatabase(databaseURL, "testserver");
+    await Tools.insertMany(arrayOfTools);
+  });
+
+  afterAll(async () => {
+    const database = await connectDatabase(databaseURL, "testserver");
+    await database.dropDatabase();
+  });
+
+  describe("Tools Path", () => {
+    it("should list all tools", async () => {
+      const resp = await request(server).get("/v1/tools");
+      expect(resp.body).toEqual(arrayOfTools);
+    });
+    it("should filter the tools by id", async () => {
+      const resp = await request(server).get(
+        "/v1/tools/4ceda7b37085d444ec1bec65"
+      );
+      expect(resp.body).toEqual([arrayOfTools[0]]);
+    });
+    it("should filter the tools by tag", async () => {
+      const resp = await request(server).get("/v1/tools?tag=node");
+      expect(resp.body).toEqual([arrayOfTools[1], arrayOfTools[2]]);
+    });
+    it("should register a new tool", async () => {
+      const resp = await request(server)
+        .post("/v1/tools")
+        .send(singleTool);
+      expect(resp.body).toEqual(singleTool);
+    });
+    it("should update the tool by id", async () => {
+      const updatedTool = {
+        ...singleTool,
+        tags: [...singleTool.tags, "process-manager"]
+      };
+      const resp = await request(server)
+        .put("/v1/tools/4ceda7b37085d444ec1bec64")
+        .send(updatedTool);
+      expect(resp.body).toEqual(updatedTool);
+    });
+    it("should delete the tool by id", async () => {
+      const resp = await request(server).delete(
+        "/v1/tools/4ceda7b37085d444ec1bec64"
+      );
+      expect(resp.body).toEqual({});
     });
   });
 });
