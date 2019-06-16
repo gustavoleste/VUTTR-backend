@@ -6,10 +6,21 @@ const {
   deleteToolById
 } = require("./toolsController");
 
+const {
+  createUser,
+  updateUser,
+  filterUsersByID,
+  deleteUsersByID
+} = require("./usersController");
+
 module.exports = {
   filterToolsByTag,
   filterToolsById,
   createNewTool,
   updateToolById,
-  deleteToolById
+  deleteToolById,
+  createUser,
+  updateUser,
+  filterUsersByID,
+  deleteUsersByID
 };
