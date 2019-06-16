@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/helpers/arrayOfTools.js</title>
+    <title>Code coverage report for src/database/models/Users.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../index.html">All files</a> / <a href="index.html">src/helpers</a> arrayOfTools.js
+      <a href="../../../index.html">All files</a> / <a href="index.html">src/database/models</a> Users.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>5/5</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>5/5</span>
       </div>
     </div>
     <p class="quiet">
@@ -80,10 +80,10 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -111,52 +111,43 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const arrayOfTools = [
-  {
-    __v: 0,
-    _id: "4ceda7b37085d444ec1bec65",
-    title: "notion",
-    link: "https://notion.so",
-    description:
-      "All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized.",
-    tags: ["organization", "planning", "collaboration", "writing", "calendar"],
-    updatedAt: "2019-06-05T17:32:20.182Z",
-    createdAt: "2019-06-05T17:32:20.182Z"
-  },
-  {
-    __v: 0,
-    _id: "4ceda7b37085d444ec1bec66",
-    title: "json-server",
-    link: "https://github.com/typicode/json-server",
-    description:
-      "Fake REST API based on a json schema. Useful for mocking and creating APIs for front-end devs to consume in coding challenges.",
-    tags: ["api", "json", "schema", "node", "github", "rest"],
-    updatedAt: "2019-06-05T17:32:20.182Z",
-    createdAt: "2019-06-05T17:32:20.182Z"
-  },
-  {
-    __v: 0,
-    _id: "4ceda7b37085d444ec1bec67",
-    title: "fastify",
-    link: "https://www.fastify.io/",
-    description:
-      "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.",
-    tags: ["web", "framework", "node", "http2", "https", "localhost"],
-    updatedAt: "2019-06-05T17:32:20.182Z",
-    createdAt: "2019-06-05T17:32:20.182Z"
-  }
-];
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 &nbsp;
-module.exports = arrayOfTools;
+const usersSchema = new Schema(
+  {
+    name: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+      lowercase: true,
+      trim: true
+    },
+    email: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+      lowercase: true,
+      trim: true,
+      unique: true
+    },
+    role: {
+      type: mongoose.SchemaTypes.String,
+      required: true,
+      default: "user"
+    },
+    password: {
+      type: mongoose.SchemaTypes.String,
+      required: true
+    }
+  },
+  { timestamps: true }
+);
+&nbsp;
+const Users = mongoose.model("Users", usersSchema);
+&nbsp;
+module.exports = Users;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
@@ -166,7 +157,7 @@ module.exports = arrayOfTools;
   generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sun Jun 16 2019 08:52:33 GMT-0300 (Brasilia Standard Time)
 </div>
 </div>
-<script src="../../prettify.js"></script>
+<script src="../../../prettify.js"></script>
 <script>
 window.onload = function () {
         if (typeof prettyPrint === 'function') {
@@ -174,7 +165,7 @@ window.onload = function () {
         }
 };
 </script>
-<script src="../../sorter.js"></script>
-<script src="../../block-navigation.js"></script>
+<script src="../../../sorter.js"></script>
+<script src="../../../block-navigation.js"></script>
 </body>
 </html>

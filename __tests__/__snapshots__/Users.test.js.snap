@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Users Model should create a new tool 1`] = `
+Object {
+  "__v": 0,
+  "_id": "1ceda7b37085d444ec1bec11",
+  "createdAt": 2019-05-28T21:28:37.290Z,
+  "email": "user@email.com",
+  "name": "default user",
+  "password": "abc123",
+  "role": "user",
+  "updatedAt": 2019-05-28T21:28:37.290Z,
+}
+`;
+
+exports[`Users Model should not create a empty user 1`] = `[ValidationError: Users validation failed: password: Path \`password\` is required., email: Path \`email\` is required., name: Path \`name\` is required.]`;
+
+exports[`Users Model should not create a tool without the email field set 1`] = `[ReferenceError: email is not defined]`;
+
+exports[`Users Model should not create a tool without the password field set 1`] = `[ReferenceError: password is not defined]`;
+
+exports[`Users Model should not create a user without the name field set 1`] = `[ReferenceError: name is not defined]`;

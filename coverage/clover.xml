@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1560683068905" clover="3.2.0">
-  <project timestamp="1560683068905" name="All files">
-    <metrics statements="77" coveredstatements="71" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="6" elements="85" coveredelements="79" complexity="0" loc="77" ncloc="77" packages="6" files="12" classes="12"/>
+<coverage generated="1560685953370" clover="3.2.0">
+  <project timestamp="1560685953370" name="All files">
+    <metrics statements="89" coveredstatements="83" conditionals="2" coveredconditionals="2" methods="6" coveredmethods="6" elements="97" coveredelements="91" complexity="0" loc="89" ncloc="89" packages="6" files="15" classes="15"/>
     <package name="src">
       <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="config.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/config.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
       </file>
       <file name="server.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/server.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -23,52 +23,73 @@
       </file>
     </package>
     <package name="src.database">
-      <metrics statements="10" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="11" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="connectDatabase.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/database/connectDatabase.js">
         <metrics statements="7" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="4" count="5" type="stmt"/>
-        <line num="5" count="5" type="stmt"/>
-        <line num="9" count="5" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="4" count="7" type="stmt"/>
+        <line num="5" count="7" type="stmt"/>
+        <line num="9" count="7" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
-        <line num="15" count="3" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
       </file>
       <file name="index.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/database/index.js">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
       </file>
     </package>
     <package name="src.database.models">
-      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="Tools.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/database/models/Tools.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="31" count="3" type="stmt"/>
-        <line num="33" count="3" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="31" count="4" type="stmt"/>
+        <line num="33" count="4" type="stmt"/>
+      </file>
+      <file name="Users.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/database/models/Users.js">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="32" count="4" type="stmt"/>
+        <line num="34" count="4" type="stmt"/>
       </file>
     </package>
     <package name="src.helpers">
-      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="adminUser.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/helpers/adminUser.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+      </file>
       <file name="arrayOfTools.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/helpers/arrayOfTools.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="37" count="2" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+      </file>
+      <file name="defaultUser.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/helpers/defaultUser.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
       </file>
       <file name="index.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/helpers/index.js">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="2" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
       </file>
       <file name="singleTool.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/helpers/singleTool.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="2" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
       </file>
     </package>
     <package name="src.rest.controllers">
