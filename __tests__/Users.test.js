@@ -32,7 +32,7 @@ describe("Users Model", () => {
     }
   });
 
-  it("should not create a tool without the email field set", async () => {
+  it("should not create a user without the email field set", async () => {
     try {
       const userWithoutEmail = { ...defaultUser, email };
       const newUser = new Users(userWithoutEmail);
@@ -42,7 +42,7 @@ describe("Users Model", () => {
     }
   });
 
-  it("should not create a tool without the password field set", async () => {
+  it("should not create a user without the password field set", async () => {
     try {
       const userWithoutPassword = { ...defaultUser, password };
       const newUser = new Users(userWithoutPassword);
@@ -52,7 +52,7 @@ describe("Users Model", () => {
     }
   });
 
-  it("should create a new tool", async () => {
+  it("should create a new user", async () => {
     try {
       const newUser = new Users(defaultUser);
       await newUser.save();

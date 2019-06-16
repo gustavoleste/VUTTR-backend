@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reviews Model should create a new review 1`] = `
+Object {
+  "__v": 0,
+  "_id": "9ceda7b37085d444ec1bec99",
+  "comment": "Very useful tool",
+  "createdAt": 2019-05-28T21:28:37.290Z,
+  "tool": "4ceda7b37085d444ec1bec64",
+  "updatedAt": 2019-05-28T21:28:37.290Z,
+  "user": "1ceda7b37085d444ec1bec11",
+}
+`;
+
+exports[`Reviews Model should not create a empty review 1`] = `[ValidationError: Reviews validation failed: comment: Path \`comment\` is required., tool: Path \`tool\` is required., user: Path \`user\` is required.]`;
+
+exports[`Reviews Model should not create a review without the comment field set 1`] = `[ReferenceError: comment is not defined]`;
+
+exports[`Reviews Model should not create a review without the tool field set 1`] = `[ReferenceError: tool is not defined]`;
+
+exports[`Reviews Model should not create a review without the user field set 1`] = `[ReferenceError: user is not defined]`;
