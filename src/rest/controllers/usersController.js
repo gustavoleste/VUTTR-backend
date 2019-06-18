@@ -1,10 +1,13 @@
 const { Users } = require("../../database/index");
+const bcrypt = require("bcryptjs");
 
 const createUser = async (req, res) => {
   try {
-    const newUser = await new Users({ ...req.body });
+    const password = await bcrypt.hash(req.body.password, 12);
+    const newUser = await new Users({ ...req.body, password });
     await newUser.save();
-    res.status(201).json(newUser);
+    const { _id, name, email, role } = newUser;
+    res.status(201).json({ _id, name, email, role });
   } catch (err) {
     throw err;
   }
@@ -15,7 +18,8 @@ const updateUserByID = async (req, res) => {
     const id = req.params.userID;
     const updatedUser = { ...req.body };
     await Users.updateOne({ _id: id }, updatedUser);
-    res.status(200).json(updatedUser);
+    const { _id, name, email, role } = updatedUser;
+    res.status(200).json({ _id, name, email, role });
   } catch (err) {
     throw err;
   }
@@ -25,7 +29,8 @@ const filterUsersByID = async (req, res) => {
   try {
     const id = req.params.userID;
     const user = await Users.findOne({ _id: id });
-    res.status(200).json(user);
+    const { _id, name, email, role } = user;
+    res.status(200).json({ _id, name, email, role });
   } catch (err) {
     throw err;
   }

@@ -9,6 +9,7 @@ const {
   userReview,
   adminUser
 } = require("../src/helpers/index");
+const { _id, name, email, role } = defaultUser;
 const { connectDatabase, Tools, Users } = require("../src/database/index");
 
 describe("Server", () => {
@@ -73,14 +74,14 @@ describe("Server", () => {
       const resp = await request(server)
         .post("/v1/users")
         .send(defaultUser);
-      expect(resp.body).toEqual(defaultUser);
+      expect(resp.body).toEqual({ _id, name, email, role });
     });
 
     it("should filter user by id", async () => {
       const resp = await request(server).get(
         "/v1/users/1ceda7b37085d444ec1bec11"
       );
-      expect(resp.body).toEqual(defaultUser);
+      expect(resp.body).toEqual({ _id, name, email, role });
     });
 
     it("should update a existing user", async () => {
@@ -91,7 +92,12 @@ describe("Server", () => {
       const resp = await request(server)
         .put("/v1/users/1ceda7b37085d444ec1bec11")
         .send(updatedUser);
-      expect(resp.body).toEqual(updatedUser);
+      expect(resp.body).toEqual({
+        _id,
+        name,
+        email: "updatedemail@email.com",
+        role
+      });
     });
 
     it("should delete user by id", async () => {
