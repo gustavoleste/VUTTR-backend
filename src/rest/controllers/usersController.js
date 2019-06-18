@@ -10,7 +10,7 @@ const createUser = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {
+const updateUserByID = async (req, res) => {
   try {
     const id = req.params.userID;
     const updatedUser = { ...req.body };
@@ -43,7 +43,7 @@ const deleteUsersByID = async (req, res) => {
 
 module.exports = {
   createUser,
-  updateUser,
+  updateUserByID,
   filterUsersByID,
   deleteUsersByID
 };

@@ -8,10 +8,17 @@ const {
 
 const {
   createUser,
-  updateUser,
+  updateUserByID,
   filterUsersByID,
   deleteUsersByID
 } = require("./usersController");
+
+const {
+  createReviews,
+  updateReviewsByID,
+  deleteReviewsByID,
+  filterReviewsByID
+} = require("./reviewsController");
 
 module.exports = {
   filterToolsByTag,
@@ -20,7 +27,11 @@ module.exports = {
   updateToolById,
   deleteToolById,
   createUser,
-  updateUser,
+  updateUserByID,
   filterUsersByID,
-  deleteUsersByID
+  deleteUsersByID,
+  createReviews,
+  updateReviewsByID,
+  deleteReviewsByID,
+  filterReviewsByID
 };

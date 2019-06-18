@@ -5,14 +5,18 @@ const { databaseURL } = require("../src/config");
 const {
   arrayOfTools,
   singleTool,
-  defaultUser
+  defaultUser,
+  userReview,
+  adminUser
 } = require("../src/helpers/index");
-const { connectDatabase, Tools } = require("../src/database/index");
+const { connectDatabase, Tools, Users } = require("../src/database/index");
 
 describe("Server", () => {
   beforeAll(async () => {
     await connectDatabase(databaseURL, "testserver");
     await Tools.insertMany(arrayOfTools);
+    const admin = new Users(adminUser);
+    await admin.save();
   });
 
   afterAll(async () => {
@@ -93,6 +97,54 @@ describe("Server", () => {
     it("should delete user by id", async () => {
       const resp = await request(server).delete(
         "/v1/users/1ceda7b37085d444ec1bec11"
+      );
+      expect(resp.body).toEqual({});
+    });
+  });
+
+  describe("Reviews path", () => {
+    it("should create a new review", async () => {
+      const resp = await request(server)
+        .post("/v1/reviews")
+        .send(userReview);
+      expect(resp.body).toEqual(userReview);
+    });
+
+    it("should filter review by id", async () => {
+      const resp = await request(server).get(
+        "/v1/reviews/9ceda7b37085d444ec1bec99"
+      );
+      expect(resp.body).toEqual(userReview);
+    });
+
+    it("should filter review by user id", async () => {
+      const resp = await request(server).get(
+        "/v1/reviews/users/1ceda7b37085d444ec1bec11"
+      );
+      expect(resp.body).toEqual(userReview);
+    });
+
+    it("should filter review by tool id", async () => {
+      const resp = await request(server).get(
+        "/v1/reviews/tools/4ceda7b37085d444ec1bec65"
+      );
+      expect(resp.body).toEqual(userReview);
+    });
+
+    it("should update a existing review by id", async () => {
+      const updatedReview = {
+        ...userReview,
+        comment: "Very cool"
+      };
+      const resp = await request(server)
+        .put("/v1/reviews/9ceda7b37085d444ec1bec99")
+        .send(updatedReview);
+      expect(resp.body).toEqual(updatedReview);
+    });
+
+    it("should delete review by id", async () => {
+      const resp = await request(server).delete(
+        "/v1/reviews/9ceda7b37085d444ec1bec99"
       );
       expect(resp.body).toEqual({});
     });

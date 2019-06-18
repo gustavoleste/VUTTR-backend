@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/rest/controllers/toolsController.js</title>
+    <title>Code coverage report for src/rest/controllers/reviewsController.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -16,7 +16,7 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../../index.html">All files</a> / <a href="index.html">src/rest/controllers</a> toolsController.js
+      <a href="../../../index.html">All files</a> / <a href="index.html">src/rest/controllers</a> reviewsController.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
@@ -25,9 +25,9 @@
         <span class='fraction'>30/35</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">83.33% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>5/6</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -109,26 +109,29 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,6 +159,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -171,69 +184,74 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { Tools } = require("../../database/index");
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { Reviews } = require("../../database/index");
 &nbsp;
-const filterToolsByTag = async (req, res) =&gt; {
+const getParams = params =&gt; {
+  if (params.reviewID) {
+    return {
+      _id: params.reviewID
+    };
+  }
+  if (params.userID) {
+    return {
+      user: params.userID
+    };
+  }
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (params.toolID) {
+    return {
+      tool: params.toolID
+    };
+  } else {
+<span class="cstat-no" title="statement not covered" >    return null;</span>
+  }
+};
+&nbsp;
+const createReviews = async (req, res) =&gt; {
   try {
-    if (req.query.tag) {
-      const tool = await Tools.find({ tags: req.query.tag });
-      return res.status(200).json(tool);
-    }
-    const tools = await Tools.find();
-    return res.status(200).json(tools);
+    const newReview = await new Reviews({ ...req.body });
+    await newReview.save();
+    res.status(201).json(newReview);
   } catch (err) {
 <span class="cstat-no" title="statement not covered" >    throw err;</span>
   }
 };
 &nbsp;
-const filterToolsById = async (req, res) =&gt; {
+const updateReviewsByID = async (req, res) =&gt; {
   try {
-    const id = req.params.toolID;
-    const tool = await Tools.find({ _id: id });
-    return res.status(200).json(tool);
+    const id = req.params.reviewID;
+    const updatedReview = { ...req.body };
+    await Reviews.updateOne({ _id: id }, updatedReview);
+    res.status(200).json(updatedReview);
   } catch (err) {
 <span class="cstat-no" title="statement not covered" >    throw err;</span>
   }
 };
 &nbsp;
-const createNewTool = async (req, res) =&gt; {
+const filterReviewsByID = async (req, res) =&gt; {
   try {
-    const newTool = new Tools({ ...req.body });
-    await newTool.save();
-    return res.status(201).json(newTool);
+    const params = getParams(req.params);
+    const review = await Reviews.findOne(params);
+    res.status(200).json(review);
   } catch (err) {
 <span class="cstat-no" title="statement not covered" >    throw err;</span>
   }
 };
 &nbsp;
-const updateToolById = async (req, res) =&gt; {
+const deleteReviewsByID = async (req, res) =&gt; {
   try {
-    const id = req.params.toolID;
-    const updatedTool = { ...req.body };
-    await Tools.updateOne({ _id: id }, updatedTool);
-    return res.status(200).json(updatedTool);
-  } catch (err) {
-<span class="cstat-no" title="statement not covered" >    throw err;</span>
-  }
-};
-&nbsp;
-const deleteToolById = async (req, res) =&gt; {
-  try {
-    const id = req.params.toolID;
-    await Tools.deleteOne({ _id: id });
-    return res.status(200).json({});
+    const id = req.params.reviewID;
+    await Reviews.deleteOne({ _id: id });
+    res.status(200).json({});
   } catch (err) {
 <span class="cstat-no" title="statement not covered" >    throw err;</span>
   }
 };
 &nbsp;
 module.exports = {
-  filterToolsByTag,
-  filterToolsById,
-  createNewTool,
-  updateToolById,
-  deleteToolById
+  createReviews,
+  updateReviewsByID,
+  filterReviewsByID,
+  deleteReviewsByID
 };
 &nbsp;</pre></td></tr>
 </table></pre>
