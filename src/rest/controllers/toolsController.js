@@ -9,7 +9,7 @@ const filterToolsByTag = async (req, res) => {
     const tools = await Tools.find();
     return res.status(200).json(tools);
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 
@@ -19,7 +19,7 @@ const filterToolsById = async (req, res) => {
     const tool = await Tools.find({ _id: id });
     return res.status(200).json(tool);
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 
@@ -29,7 +29,7 @@ const createNewTool = async (req, res) => {
     await newTool.save();
     return res.status(201).json(newTool);
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 
@@ -40,7 +40,7 @@ const updateToolById = async (req, res) => {
     await Tools.updateOne({ _id: id }, updatedTool);
     return res.status(200).json(updatedTool);
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 
@@ -50,7 +50,7 @@ const deleteToolById = async (req, res) => {
     await Tools.deleteOne({ _id: id });
     return res.status(200).json({});
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 

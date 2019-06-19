@@ -7,10 +7,11 @@ const {
 } = require("./toolsController");
 
 const {
-  createUser,
+  signup,
   updateUserByID,
   filterUsersByID,
-  deleteUsersByID
+  deleteUsersByID,
+  login
 } = require("./usersController");
 
 const {
@@ -26,10 +27,11 @@ module.exports = {
   createNewTool,
   updateToolById,
   deleteToolById,
-  createUser,
+  signup,
   updateUserByID,
   filterUsersByID,
   deleteUsersByID,
+  login,
   createReviews,
   updateReviewsByID,
   deleteReviewsByID,

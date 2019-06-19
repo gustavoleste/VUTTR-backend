@@ -72,9 +72,16 @@ describe("Server", () => {
   describe("Users path", () => {
     it("should create a new user", async () => {
       const resp = await request(server)
-        .post("/v1/users")
+        .post("/v1/users/signup")
         .send(defaultUser);
       expect(resp.body).toEqual({ _id, name, email, role });
+    });
+
+    it("should gerate a token", async () => {
+      const resp = await request(server)
+        .post("/v1/users/login")
+        .send({ email, password: "abc123" });
+      expect(typeof resp.body.token).toEqual("string");
     });
 
     it("should filter user by id", async () => {

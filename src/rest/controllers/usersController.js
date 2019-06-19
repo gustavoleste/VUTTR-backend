@@ -1,7 +1,9 @@
 const { Users } = require("../../database/index");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { secretKey } = require("../../config");
 
-const createUser = async (req, res) => {
+const signup = async (req, res) => {
   try {
     const password = await bcrypt.hash(req.body.password, 12);
     const newUser = await new Users({ ...req.body, password });
@@ -9,7 +11,7 @@ const createUser = async (req, res) => {
     const { _id, name, email, role } = newUser;
     res.status(201).json({ _id, name, email, role });
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 
@@ -21,7 +23,7 @@ const updateUserByID = async (req, res) => {
     const { _id, name, email, role } = updatedUser;
     res.status(200).json({ _id, name, email, role });
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 
@@ -32,7 +34,7 @@ const filterUsersByID = async (req, res) => {
     const { _id, name, email, role } = user;
     res.status(200).json({ _id, name, email, role });
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 
@@ -42,13 +44,40 @@ const deleteUsersByID = async (req, res) => {
     await Users.deleteOne({ _id: id });
     res.status(200).json({});
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    const user = await Users.findOne({ email: req.body.email });
+    if (!user) {
+      res.status(401).json({ message: "Invalid Credencials" });
+    }
+    const isMatch = await bcrypt.compare(req.body.password, user.password);
+    if (!isMatch) {
+      res.status(401).json({ message: "Invalid Credencials" });
+    }
+    const token = await jwt.sign(
+      {
+        id: user._id,
+        role: user.role
+      },
+      secretKey,
+      {
+        expiresIn: "1h"
+      }
+    );
+    return res.status(200).json({ token });
+  } catch (err) {
+    res.status(500).json({ err });
   }
 };
 
 module.exports = {
-  createUser,
+  signup,
   updateUserByID,
   filterUsersByID,
-  deleteUsersByID
+  deleteUsersByID,
+  login
 };

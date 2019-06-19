@@ -26,7 +26,7 @@ const createReviews = async (req, res) => {
     await newReview.save();
     res.status(201).json(newReview);
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 
@@ -37,7 +37,7 @@ const updateReviewsByID = async (req, res) => {
     await Reviews.updateOne({ _id: id }, updatedReview);
     res.status(200).json(updatedReview);
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 
@@ -47,7 +47,7 @@ const filterReviewsByID = async (req, res) => {
     const review = await Reviews.findOne(params);
     res.status(200).json(review);
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 
@@ -57,7 +57,7 @@ const deleteReviewsByID = async (req, res) => {
     await Reviews.deleteOne({ _id: id });
     res.status(200).json({});
   } catch (err) {
-    throw err;
+    res.status(500).json({ err });
   }
 };
 

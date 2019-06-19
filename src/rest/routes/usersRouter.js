@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const {
-  createUser,
+  signup,
   updateUserByID,
   filterUsersByID,
-  deleteUsersByID
+  deleteUsersByID,
+  login
 } = require("../controllers/index");
 
 router
-  .post("/", createUser)
+  .post("/signup", signup)
+  .post("/login", login)
   .put("/:userID", updateUserByID)
   .get("/:userID", filterUsersByID)
   .delete("/:userID", deleteUsersByID);
