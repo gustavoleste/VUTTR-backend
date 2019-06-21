@@ -5,11 +5,11 @@ const { databaseURL } = require("../src/config");
 const {
   arrayOfTools,
   singleTool,
-  defaultUser,
+  defaultUserOne,
   userReview,
   adminUser
 } = require("../src/helpers/index");
-const { _id, name, email, role } = defaultUser;
+const { _id, name, email, role } = defaultUserOne;
 const { connectDatabase, Tools, Users } = require("../src/database/index");
 
 describe("Server", () => {
@@ -73,7 +73,7 @@ describe("Server", () => {
     it("should create a new user", async () => {
       const resp = await request(server)
         .post("/v1/users/signup")
-        .send(defaultUser);
+        .send(defaultUserOne);
       expect(resp.body).toEqual({ _id, name, email, role });
     });
 
@@ -93,7 +93,7 @@ describe("Server", () => {
 
     it("should update a existing user", async () => {
       const updatedUser = {
-        ...defaultUser,
+        ...defaultUserOne,
         email: "updatedemail@email.com"
       };
       const resp = await request(server)

@@ -18,10 +18,11 @@ Object {
   ],
   "title": "hotel",
   "updatedAt": 2019-05-28T21:28:37.290Z,
+  "user": "1ceda7b37085d444ec1bec11",
 }
 `;
 
-exports[`Tools Model should not create a empty tool 1`] = `[ValidationError: Tools validation failed: description: Path \`description\` is required., link: Path \`link\` is required., title: Path \`title\` is required.]`;
+exports[`Tools Model should not create a empty tool 1`] = `[ValidationError: Tools validation failed: description: Path \`description\` is required., link: Path \`link\` is required., user: Path \`user\` is required., title: Path \`title\` is required.]`;
 
 exports[`Tools Model should not create a tool without the description field set 1`] = `[ReferenceError: description is not defined]`;
 

@@ -9,6 +9,11 @@ const toolsSchema = new Schema(
       lowercase: true,
       trim: true
     },
+    user: {
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true,
+      ref: "users"
+    },
     link: {
       type: mongoose.SchemaTypes.String,
       required: true,

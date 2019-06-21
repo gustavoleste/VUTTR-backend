@@ -3,6 +3,7 @@ const arrayOfTools = [
     __v: 0,
     _id: "4ceda7b37085d444ec1bec65",
     title: "notion",
+    user: "1ceda7b37085d444ec1bec11",
     link: "https://notion.so",
     description:
       "All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized.",
@@ -14,6 +15,7 @@ const arrayOfTools = [
     __v: 0,
     _id: "4ceda7b37085d444ec1bec66",
     title: "json-server",
+    user: "1ceda7b37085d444ec1bec11",
     link: "https://github.com/typicode/json-server",
     description:
       "Fake REST API based on a json schema. Useful for mocking and creating APIs for front-end devs to consume in coding challenges.",
@@ -25,6 +27,7 @@ const arrayOfTools = [
     __v: 0,
     _id: "4ceda7b37085d444ec1bec67",
     title: "fastify",
+    user: "22ceda7b37085d444ec1bec2",
     link: "https://www.fastify.io/",
     description:
       "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.",

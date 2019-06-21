@@ -1,13 +1,15 @@
 const singleTool = require("./singleTool");
 const arrayOfTools = require("./arrayOfTools");
-const defaultUser = require("./defaultUser");
+const defaultUserOne = require("./defaultUserOne");
+const defaultUserTwo = require("./defaultUserTwo");
 const adminUser = require("./adminUser");
 const userReview = require("./userReview");
 
 module.exports = {
   singleTool,
   arrayOfTools,
-  defaultUser,
+  defaultUserOne,
+  defaultUserTwo,
   adminUser,
   userReview
 };
