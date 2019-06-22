@@ -6,18 +6,35 @@ const {
   arrayOfTools,
   singleTool,
   defaultUserOne,
+  defaultUserTwo,
   userReview,
   adminUser
 } = require("../src/helpers/index");
+const userOneCredentials = {
+  email: defaultUserOne.email,
+  password: defaultUserOne.password
+};
+const userTowCredentials = {
+  email: defaultUserTwo.email,
+  password: defaultUserTwo.password
+};
+const adminCredentials = {
+  email: adminUser.email,
+  password: adminUser.password
+};
 const { _id, name, email, role } = defaultUserOne;
-const { connectDatabase, Tools, Users } = require("../src/database/index");
+const { connectDatabase, Tools } = require("../src/database/index");
 
 describe("Server", () => {
   beforeAll(async () => {
     await connectDatabase(databaseURL, "testserver");
     await Tools.insertMany(arrayOfTools);
-    const admin = new Users(adminUser);
-    await admin.save();
+    await request(server)
+      .post("/v1/users/signup")
+      .send(adminUser);
+    await request(server)
+      .post("/v1/users/signup")
+      .send(defaultUserTwo);
   });
 
   afterAll(async () => {
@@ -43,29 +60,104 @@ describe("Server", () => {
       expect(resp.body).toEqual([arrayOfTools[1], arrayOfTools[2]]);
     });
 
-    it("should register a new tool", async () => {
+    it("shouldn't create a new tool if the user is not logged in", async () => {
       const resp = await request(server)
         .post("/v1/tools")
+        .send(singleTool);
+      expect(resp.status).toEqual(401);
+    });
+
+    it("should register a new tool if the user is logged in", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(userTowCredentials);
+      const resp = await request(server)
+        .post("/v1/tools")
+        .set("Authorization", `Bearer ${login.body.token}`)
         .send(singleTool);
       expect(resp.body).toEqual(singleTool);
     });
 
-    it("should update the tool by id", async () => {
+    it("should update the tool by id if the default user is the creator", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(userTowCredentials);
       const updatedTool = {
         ...singleTool,
         tags: [...singleTool.tags, "process-manager"]
       };
       const resp = await request(server)
         .put("/v1/tools/4ceda7b37085d444ec1bec64")
+        .set("Authorization", `Bearer ${login.body.token}`)
         .send(updatedTool);
       expect(resp.body).toEqual(updatedTool);
     });
 
-    it("should delete the tool by id", async () => {
+    it("shouldn't update the tool by id if the default user not is the creator", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(userTowCredentials);
+      const updatedTool = {
+        ...arrayOfTools[0],
+        tags: [...arrayOfTools[0].tags, "process-manager"]
+      };
+      const resp = await request(server)
+        .put("/v1/tools/4ceda7b37085d444ec1bec65")
+        .set("Authorization", `Bearer ${login.body.token}`)
+        .send(updatedTool);
+      expect(resp.status).toEqual(403);
+    });
+
+    it("should update the tool by id if the user role is admin", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(adminCredentials);
+      const updatedTool = {
+        ...singleTool,
+        tags: [...singleTool.tags, "devtools"]
+      };
+      const resp = await request(server)
+        .put("/v1/tools/4ceda7b37085d444ec1bec64")
+        .set("Authorization", `Bearer ${login.body.token}`)
+        .send(updatedTool);
+      expect(resp.body).toEqual(updatedTool);
+    });
+
+    it("shouldn't delete the tool by id if user is not logged in", async () => {
       const resp = await request(server).delete(
         "/v1/tools/4ceda7b37085d444ec1bec64"
       );
-      expect(resp.body).toEqual({});
+      expect(resp.status).toEqual(401);
+    });
+
+    it("shouldn't delete the tool by id if the default user not is the creator", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(userTowCredentials);
+      const resp = await request(server)
+        .delete("/v1/tools/4ceda7b37085d444ec1bec65")
+        .set("Authorization", `Bearer ${login.body.token}`);
+      expect(resp.status).toEqual(403);
+    });
+
+    it("should delete the tool by id if the default user is the creator", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(userTowCredentials);
+      const resp = await request(server)
+        .delete("/v1/tools/4ceda7b37085d444ec1bec64")
+        .set("Authorization", `Bearer ${login.body.token}`);
+      expect(resp.status).toEqual(200);
+    });
+
+    it("should delete the tool by id if the default user role is admin", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(adminCredentials);
+      const resp = await request(server)
+        .delete("/v1/tools/4ceda7b37085d444ec1bec65")
+        .set("Authorization", `Bearer ${login.body.token}`);
+      expect(resp.status).toEqual(200);
     });
   });
 
@@ -80,7 +172,8 @@ describe("Server", () => {
     it("should gerate a token", async () => {
       const resp = await request(server)
         .post("/v1/users/login")
-        .send({ email, password: "abc123" });
+        .send(userOneCredentials);
+      expect(resp.status).toEqual(200);
       expect(typeof resp.body.token).toEqual("string");
     });
 

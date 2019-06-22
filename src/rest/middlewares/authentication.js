@@ -18,9 +18,9 @@ const auth = (req, res, next) => {
       req.isAuth = false;
       return next();
     }
-    req.isAuth = false;
+    req.isAuth = true;
     req.user = user;
-    next();
+    return next();
   } catch (err) {
     return res.status(500).json({ err });
   }

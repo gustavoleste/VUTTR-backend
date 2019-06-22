@@ -25,6 +25,9 @@ const filterToolsById = async (req, res) => {
 
 const createNewTool = async (req, res) => {
   try {
+    if (!req.isAuth) {
+      return res.status(401).json({ message: "Not Authenticate." });
+    }
     const newTool = new Tools({ ...req.body });
     await newTool.save();
     return res.status(201).json(newTool);
@@ -35,10 +38,16 @@ const createNewTool = async (req, res) => {
 
 const updateToolById = async (req, res) => {
   try {
-    const id = req.params.toolID;
-    const updatedTool = { ...req.body };
-    await Tools.updateOne({ _id: id }, updatedTool);
-    return res.status(200).json(updatedTool);
+    if (!req.isAuth) {
+      return res.status(401).json({ message: "Not Authenticate." });
+    }
+    const tool = await Tools.findOne({ _id: req.params.toolID });
+    if (req.user.id == tool.user || req.user.role === "admin") {
+      const updatedTool = { ...req.body };
+      await Tools.updateOne({ _id: req.params.toolID }, updatedTool);
+      return res.status(200).json(updatedTool);
+    }
+    return res.status(403).json({ msg: "Access not allowed" });
   } catch (err) {
     res.status(500).json({ err });
   }
@@ -46,9 +55,15 @@ const updateToolById = async (req, res) => {
 
 const deleteToolById = async (req, res) => {
   try {
-    const id = req.params.toolID;
-    await Tools.deleteOne({ _id: id });
-    return res.status(200).json({});
+    if (!req.isAuth) {
+      return res.status(401).json({ message: "Not Authenticate." });
+    }
+    const tool = await Tools.findOne({ _id: req.params.toolID });
+    if (req.user.id == tool.user || req.user.role === "admin") {
+      await Tools.deleteOne({ _id: req.params.toolID });
+      return res.status(200).json({});
+    }
+    return res.status(403).json({ msg: "Access not allowed" });
   } catch (err) {
     res.status(500).json({ err });
   }

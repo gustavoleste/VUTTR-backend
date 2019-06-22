@@ -9,9 +9,9 @@ const signup = async (req, res) => {
     const newUser = await new Users({ ...req.body, password });
     await newUser.save();
     const { _id, name, email, role } = newUser;
-    res.status(201).json({ _id, name, email, role });
+    return res.status(201).json({ _id, name, email, role });
   } catch (err) {
-    res.status(500).json({ err });
+    return res.status(500).json({ err });
   }
 };
 
@@ -21,9 +21,9 @@ const updateUserByID = async (req, res) => {
     const updatedUser = { ...req.body };
     await Users.updateOne({ _id: id }, updatedUser);
     const { _id, name, email, role } = updatedUser;
-    res.status(200).json({ _id, name, email, role });
+    return res.status(200).json({ _id, name, email, role });
   } catch (err) {
-    res.status(500).json({ err });
+    return res.status(500).json({ err });
   }
 };
 
@@ -32,9 +32,9 @@ const filterUsersByID = async (req, res) => {
     const id = req.params.userID;
     const user = await Users.findOne({ _id: id });
     const { _id, name, email, role } = user;
-    res.status(200).json({ _id, name, email, role });
+    return res.status(200).json({ _id, name, email, role });
   } catch (err) {
-    res.status(500).json({ err });
+    return res.status(500).json({ err });
   }
 };
 
@@ -42,9 +42,9 @@ const deleteUsersByID = async (req, res) => {
   try {
     const id = req.params.userID;
     await Users.deleteOne({ _id: id });
-    res.status(200).json({});
+    return res.status(200).json({});
   } catch (err) {
-    res.status(500).json({ err });
+    return res.status(500).json({ err });
   }
 };
 
@@ -52,11 +52,11 @@ const login = async (req, res) => {
   try {
     const user = await Users.findOne({ email: req.body.email });
     if (!user) {
-      res.status(401).json({ message: "Invalid Credencials" });
+      return res.status(401).json({ message: "Invalid Credencials" });
     }
     const isMatch = await bcrypt.compare(req.body.password, user.password);
     if (!isMatch) {
-      res.status(401).json({ message: "Invalid Credencials" });
+      return res.status(401).json({ message: "Invalid Credencials" });
     }
     const token = await jwt.sign(
       {
@@ -70,7 +70,7 @@ const login = async (req, res) => {
     );
     return res.status(200).json({ token });
   } catch (err) {
-    res.status(500).json({ err });
+    return res.status(500).json({ err });
   }
 };
 
