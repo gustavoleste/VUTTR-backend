@@ -170,11 +170,10 @@ describe("Server", () => {
     });
 
     it("should gerate a token", async () => {
-      const resp = await request(server)
+      const login = await request(server)
         .post("/v1/users/login")
         .send(userOneCredentials);
-      expect(resp.status).toEqual(200);
-      expect(typeof resp.body.token).toEqual("string");
+      expect(typeof login.body.token).toEqual("string");
     });
 
     it("should filter user by id", async () => {
@@ -184,26 +183,81 @@ describe("Server", () => {
       expect(resp.body).toEqual({ _id, name, email, role });
     });
 
-    it("should update a existing user", async () => {
+    it("shouldn't update if user don't logged in", async () => {
       const updatedUser = {
         ...defaultUserOne,
-        email: "updatedemail@email.com"
+        name: "user one updated"
       };
       const resp = await request(server)
         .put("/v1/users/1ceda7b37085d444ec1bec11")
         .send(updatedUser);
-      expect(resp.body).toEqual({
-        _id,
-        name,
-        email: "updatedemail@email.com",
-        role
-      });
+      expect(resp.status).toEqual(401);
     });
 
-    it("should delete user by id", async () => {
+    it("should default user update only your profile", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(userTowCredentials);
+      const updatedUser = {
+        ...defaultUserOne,
+        name: "user two updated"
+      };
+      const resp = await request(server)
+        .put("/v1/users/1ceda7b37085d444ec1bec11")
+        .set("Authorization", `Bearer ${login.body.token}`)
+        .send(updatedUser);
+      expect(resp.status).toEqual(403);
+    });
+
+    it("should default user update your profile", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(userOneCredentials);
+      const updatedUser = {
+        ...defaultUserOne,
+        name: "user one"
+      };
+      const resp = await request(server)
+        .put("/v1/users/1ceda7b37085d444ec1bec11")
+        .set("Authorization", `Bearer ${login.body.token}`)
+        .send(updatedUser);
+      expect(resp.status).toEqual(200);
+    });
+
+    it("shouldn't delete if user don't logged in", async () => {
       const resp = await request(server).delete(
         "/v1/users/1ceda7b37085d444ec1bec11"
       );
+      expect(resp.status).toEqual(401);
+    });
+
+    it("should default user delete only your profile", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(userTowCredentials);
+      const resp = await request(server)
+        .delete("/v1/users/1ceda7b37085d444ec1bec11")
+        .set("Authorization", `Bearer ${login.body.token}`);
+      expect(resp.status).toEqual(403);
+    });
+
+    it("should default user delete your profile", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(userTowCredentials);
+      const resp = await request(server)
+        .delete("/v1/users/22ceda7b37085d444ec1bec2")
+        .set("Authorization", `Bearer ${login.body.token}`);
+      expect(resp.body).toEqual({});
+    });
+
+    it("should admin user delete all profiles", async () => {
+      const login = await request(server)
+        .post("/v1/users/login")
+        .send(adminCredentials);
+      const resp = await request(server)
+        .delete("/v1/users/1ceda7b37085d444ec1bec11")
+        .set("Authorization", `Bearer ${login.body.token}`);
       expect(resp.body).toEqual({});
     });
   });

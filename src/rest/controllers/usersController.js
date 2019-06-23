@@ -17,11 +17,17 @@ const signup = async (req, res) => {
 
 const updateUserByID = async (req, res) => {
   try {
-    const id = req.params.userID;
-    const updatedUser = { ...req.body };
-    await Users.updateOne({ _id: id }, updatedUser);
-    const { _id, name, email, role } = updatedUser;
-    return res.status(200).json({ _id, name, email, role });
+    if (!req.isAuth) {
+      return res.status(401).json({ message: "Not Authenticate." });
+    }
+    const user = await Users.findOne({ _id: req.params.userID });
+    if (req.user.id == user._id || req.user.role === "admin") {
+      const updatedUser = { ...req.body };
+      await Users.updateOne({ _id: req.params.userID }, updatedUser);
+      const { _id, name, email, role } = updatedUser;
+      return res.status(200).json({ _id, name, email, role });
+    }
+    return res.status(403).json({ msg: "Access not allowed" });
   } catch (err) {
     return res.status(500).json({ err });
   }
@@ -40,9 +46,15 @@ const filterUsersByID = async (req, res) => {
 
 const deleteUsersByID = async (req, res) => {
   try {
-    const id = req.params.userID;
-    await Users.deleteOne({ _id: id });
-    return res.status(200).json({});
+    if (!req.isAuth) {
+      return res.status(401).json({ message: "Not Authenticate." });
+    }
+    const user = await Users.findOne({ _id: req.params.userID });
+    if (req.user.id == user._id || req.user.role === "admin") {
+      await Users.deleteOne({ _id: req.params.userID });
+      return res.status(200).json({});
+    }
+    return res.status(403).json({ msg: "Access not allowed" });
   } catch (err) {
     return res.status(500).json({ err });
   }
