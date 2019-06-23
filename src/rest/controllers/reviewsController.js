@@ -22,6 +22,9 @@ const getParams = params => {
 
 const createReviews = async (req, res) => {
   try {
+    if (!req.isAuth) {
+      return res.status(401).json({ message: "Not Authenticate." });
+    }
     const newReview = await new Reviews({ ...req.body });
     await newReview.save();
     return res.status(201).json(newReview);
@@ -32,10 +35,16 @@ const createReviews = async (req, res) => {
 
 const updateReviewsByID = async (req, res) => {
   try {
-    const id = req.params.reviewID;
-    const updatedReview = { ...req.body };
-    await Reviews.updateOne({ _id: id }, updatedReview);
-    return res.status(200).json(updatedReview);
+    if (!req.isAuth) {
+      return res.status(401).json({ message: "Not Authenticate." });
+    }
+    const review = await Reviews.findOne({ _id: req.params.reviewID });
+    if (req.user.id == review.user || req.user.role === "admin") {
+      const updatedReview = { ...req.body };
+      await Reviews.updateOne({ _id: req.params.toolID }, updatedReview);
+      return res.status(200).json(updatedReview);
+    }
+    return res.status(403).json({ msg: "Access not allowed" });
   } catch (err) {
     return res.status(500).json({ err });
   }
@@ -53,9 +62,16 @@ const filterReviewsByID = async (req, res) => {
 
 const deleteReviewsByID = async (req, res) => {
   try {
-    const id = req.params.reviewID;
-    await Reviews.deleteOne({ _id: id });
-    return res.status(200).json({});
+    if (!req.isAuth) {
+      return res.status(401).json({ message: "Not Authenticate." });
+    }
+    const review = await Reviews.findOne({ _id: req.params.reviewID });
+    if (req.user.id == review.user || req.user.role === "admin") {
+      const updatedReview = { ...req.body };
+      await Reviews.deleteOne({ _id: req.params.toolID }, updatedReview);
+      return res.status(200).json({});
+    }
+    return res.status(403).json({ msg: "Access not allowed" });
   } catch (err) {
     return res.status(500).json({ err });
   }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1561253061486" clover="3.2.0">
-  <project timestamp="1561253061486" name="All files">
-    <metrics statements="236" coveredstatements="212" conditionals="44" coveredconditionals="38" methods="17" coveredmethods="17" elements="297" coveredelements="267" complexity="0" loc="236" ncloc="236" packages="7" files="23" classes="23"/>
+<coverage generated="1561284578678" clover="3.2.0">
+  <project timestamp="1561284578678" name="All files">
+    <metrics statements="250" coveredstatements="224" conditionals="58" coveredconditionals="50" methods="17" coveredmethods="17" elements="325" coveredelements="291" complexity="0" loc="250" ncloc="250" packages="7" files="24" classes="24"/>
     <package name="src">
       <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="config.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/config.js">
@@ -73,7 +73,7 @@
       </file>
     </package>
     <package name="src.helpers">
-      <metrics statements="19" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="22" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="adminUser.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/helpers/adminUser.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
@@ -89,20 +89,26 @@
         <line num="1" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
+      <file name="defaultUserThree.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/helpers/defaultUserThree.js">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+      </file>
       <file name="defaultUserTwo.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/helpers/defaultUserTwo.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
       </file>
       <file name="index.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/helpers/index.js">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
       </file>
       <file name="singleTool.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/helpers/singleTool.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -116,7 +122,7 @@
       </file>
     </package>
     <package name="src.rest.controllers">
-      <metrics statements="137" coveredstatements="119" conditionals="38" coveredconditionals="34" methods="15" coveredmethods="15"/>
+      <metrics statements="148" coveredstatements="128" conditionals="52" coveredconditionals="46" methods="15" coveredmethods="15"/>
       <file name="index.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/rest/controllers/index.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="7" count="1" type="stmt"/>
@@ -125,7 +131,7 @@
         <line num="24" count="1" type="stmt"/>
       </file>
       <file name="reviewsController.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/rest/controllers/reviewsController.js">
-        <metrics statements="35" coveredstatements="30" conditionals="6" coveredconditionals="5" methods="5" coveredmethods="5"/>
+        <metrics statements="46" coveredstatements="39" conditionals="20" coveredconditionals="17" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="3" type="cond" truecount="2" falsecount="0"/>
@@ -137,30 +143,41 @@
         <line num="19" count="0" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="1" type="stmt"/>
-        <line num="35" count="1" type="stmt"/>
+        <line num="25" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="38" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="42" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="43" count="1" type="stmt"/>
         <line num="44" count="1" type="stmt"/>
-        <line num="45" count="3" type="stmt"/>
-        <line num="46" count="3" type="stmt"/>
-        <line num="47" count="3" type="stmt"/>
-        <line num="48" count="3" type="stmt"/>
-        <line num="50" count="0" type="stmt"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="58" count="1" type="stmt"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="64" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="53" count="1" type="stmt"/>
+        <line num="54" count="3" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="56" count="3" type="stmt"/>
+        <line num="57" count="3" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="64" count="2" type="stmt"/>
+        <line num="65" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="69" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
       </file>
       <file name="toolsController.js" path="/home/gleste/Documents/projetos/bossabox/vuttr-server/src/rest/controllers/toolsController.js">
         <metrics statements="45" coveredstatements="39" conditionals="16" coveredconditionals="15" methods="5" coveredmethods="5"/>
@@ -217,12 +234,12 @@
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
-        <line num="8" count="3" type="stmt"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
-        <line num="11" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="3" type="stmt"/>
@@ -254,15 +271,15 @@
         <line num="57" count="1" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
         <line num="63" count="1" type="stmt"/>
-        <line num="64" count="13" type="stmt"/>
-        <line num="65" count="13" type="stmt"/>
-        <line num="66" count="13" type="cond" truecount="1" falsecount="1"/>
+        <line num="64" count="18" type="stmt"/>
+        <line num="65" count="18" type="stmt"/>
+        <line num="66" count="18" type="cond" truecount="1" falsecount="1"/>
         <line num="67" count="0" type="stmt"/>
-        <line num="69" count="13" type="stmt"/>
-        <line num="70" count="13" type="cond" truecount="1" falsecount="1"/>
+        <line num="69" count="18" type="stmt"/>
+        <line num="70" count="18" type="cond" truecount="1" falsecount="1"/>
         <line num="71" count="0" type="stmt"/>
-        <line num="73" count="13" type="stmt"/>
-        <line num="83" count="13" type="stmt"/>
+        <line num="73" count="18" type="stmt"/>
+        <line num="83" count="18" type="stmt"/>
         <line num="85" count="0" type="stmt"/>
         <line num="89" count="1" type="stmt"/>
       </file>
@@ -274,22 +291,22 @@
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="5" count="42" type="stmt"/>
-        <line num="6" count="42" type="stmt"/>
-        <line num="7" count="42" type="cond" truecount="2" falsecount="0"/>
-        <line num="8" count="30" type="stmt"/>
-        <line num="9" count="30" type="stmt"/>
-        <line num="11" count="12" type="stmt"/>
-        <line num="12" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="5" count="51" type="stmt"/>
+        <line num="6" count="51" type="stmt"/>
+        <line num="7" count="51" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="34" type="stmt"/>
+        <line num="9" count="34" type="stmt"/>
+        <line num="11" count="17" type="stmt"/>
+        <line num="12" count="17" type="cond" truecount="1" falsecount="1"/>
         <line num="13" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
-        <line num="16" count="12" type="stmt"/>
-        <line num="17" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="16" count="17" type="stmt"/>
+        <line num="17" count="17" type="cond" truecount="1" falsecount="1"/>
         <line num="18" count="0" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
-        <line num="21" count="12" type="stmt"/>
-        <line num="22" count="12" type="stmt"/>
-        <line num="23" count="12" type="stmt"/>
+        <line num="21" count="17" type="stmt"/>
+        <line num="22" count="17" type="stmt"/>
+        <line num="23" count="17" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
       </file>
