@@ -6,7 +6,7 @@ const defaultUserThree = {
   role: "user",
   password: "123abc",
   createdAt: "2019-06-28T21:28:37.290Z",
-  updatedAt: "2019-07-28T21:28:37.290Z"
+  updatedAt: "2019-06-28T21:28:37.290Z"
 };
 
 module.exports = defaultUserThree;

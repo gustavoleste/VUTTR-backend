@@ -5,6 +5,7 @@ const defaultUserTwo = require("./defaultUserTwo");
 const defaultUserThree = require("./defaultUserThree");
 const adminUser = require("./adminUser");
 const userReview = require("./userReview");
+const login = require("./login");
 
 module.exports = {
   singleTool,
@@ -13,5 +14,6 @@ module.exports = {
   defaultUserTwo,
   defaultUserThree,
   adminUser,
-  userReview
+  userReview,
+  login
 };

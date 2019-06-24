@@ -8,8 +8,8 @@ const signup = async (req, res) => {
     const password = await bcrypt.hash(req.body.password, 12);
     const newUser = await new Users({ ...req.body, password });
     await newUser.save();
-    const { _id, name, email, role } = newUser;
-    return res.status(201).json({ _id, name, email, role });
+    delete newUser._doc.password;
+    return res.status(201).json(newUser);
   } catch (err) {
     return res.status(500).json({ err });
   }
@@ -24,8 +24,8 @@ const updateUserByID = async (req, res) => {
     if (req.user.id == user._id || req.user.role === "admin") {
       const updatedUser = { ...req.body };
       await Users.updateOne({ _id: req.params.userID }, updatedUser);
-      const { _id, name, email, role } = updatedUser;
-      return res.status(200).json({ _id, name, email, role });
+      delete updatedUser.password;
+      return res.status(200).json(updatedUser);
     }
     return res.status(403).json({ msg: "Access not allowed" });
   } catch (err) {
@@ -37,8 +37,8 @@ const filterUsersByID = async (req, res) => {
   try {
     const id = req.params.userID;
     const user = await Users.findOne({ _id: id });
-    const { _id, name, email, role } = user;
-    return res.status(200).json({ _id, name, email, role });
+    delete user._doc.password;
+    return res.status(200).json(user);
   } catch (err) {
     return res.status(500).json({ err });
   }

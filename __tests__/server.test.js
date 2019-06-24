@@ -9,40 +9,22 @@ const {
   defaultUserTwo,
   defaultUserThree,
   userReview,
-  adminUser
+  adminUser,
+  login
 } = require("../src/helpers/index");
-const userOneCredentials = {
-  email: defaultUserOne.email,
-  password: defaultUserOne.password
-};
-const userTwoCredentials = {
-  email: defaultUserTwo.email,
-  password: defaultUserTwo.password
-};
-const userThreeCredentials = {
-  email: defaultUserThree.email,
-  password: defaultUserThree.password
-};
-const adminCredentials = {
-  email: adminUser.email,
-  password: adminUser.password
-};
-const { _id, name, email, role } = defaultUserOne;
 const { connectDatabase, Tools } = require("../src/database/index");
+
+let adminToken;
+let userOneToken;
+let userTwoToken;
 
 describe("Server", () => {
   beforeAll(async () => {
     await connectDatabase(databaseURL, "testserver");
     await Tools.insertMany(arrayOfTools);
-    await request(server)
-      .post("/v1/users/signup")
-      .send(adminUser);
-    await request(server)
-      .post("/v1/users/signup")
-      .send(defaultUserOne);
-    await request(server)
-      .post("/v1/users/signup")
-      .send(defaultUserTwo);
+    adminToken = await login(server, adminUser);
+    userOneToken = await login(server, defaultUserOne);
+    userTwoToken = await login(server, defaultUserTwo);
   });
 
   afterAll(async () => {
@@ -51,8 +33,14 @@ describe("Server", () => {
   });
 
   describe("Tools Path", () => {
+    const updatedTool = {
+      ...singleTool,
+      tags: [...singleTool.tags, "process-manager"]
+    };
+
     it("should list all tools", async () => {
       const resp = await request(server).get("/v1/tools");
+      expect(resp.status).toEqual(200);
       expect(resp.body).toEqual(arrayOfTools);
     });
 
@@ -60,11 +48,13 @@ describe("Server", () => {
       const resp = await request(server).get(
         "/v1/tools/4ceda7b37085d444ec1bec65"
       );
+      expect(resp.status).toEqual(200);
       expect(resp.body).toEqual([arrayOfTools[0]]);
     });
 
     it("should filter the tools by tag", async () => {
       const resp = await request(server).get("/v1/tools?tag=node");
+      expect(resp.status).toEqual(200);
       expect(resp.body).toEqual([arrayOfTools[1], arrayOfTools[2]]);
     });
 
@@ -76,58 +66,37 @@ describe("Server", () => {
     });
 
     it("should register a new tool if the user is logged in", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userTwoCredentials);
       const resp = await request(server)
         .post("/v1/tools")
-        .set("Authorization", `Bearer ${login.body.token}`)
+        .set("Authorization", `Bearer ${userTwoToken}`)
         .send(singleTool);
+      expect(resp.status).toEqual(201);
       expect(resp.body).toEqual(singleTool);
     });
 
     it("should update the tool by id if the default user is the creator", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userTwoCredentials);
-      const updatedTool = {
-        ...singleTool,
-        tags: [...singleTool.tags, "process-manager"]
-      };
       const resp = await request(server)
         .put("/v1/tools/4ceda7b37085d444ec1bec64")
-        .set("Authorization", `Bearer ${login.body.token}`)
+        .set("Authorization", `Bearer ${userTwoToken}`)
         .send(updatedTool);
+      expect(resp.status).toEqual(200);
       expect(resp.body).toEqual(updatedTool);
     });
 
     it("shouldn't update the tool by id if the default user not is the creator", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userTwoCredentials);
-      const updatedTool = {
-        ...arrayOfTools[0],
-        tags: [...arrayOfTools[0].tags, "process-manager"]
-      };
       const resp = await request(server)
         .put("/v1/tools/4ceda7b37085d444ec1bec65")
-        .set("Authorization", `Bearer ${login.body.token}`)
+        .set("Authorization", `Bearer ${userTwoToken}`)
         .send(updatedTool);
       expect(resp.status).toEqual(403);
     });
 
     it("should update the tool by id if the user role is admin", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(adminCredentials);
-      const updatedTool = {
-        ...singleTool,
-        tags: [...singleTool.tags, "devtools"]
-      };
       const resp = await request(server)
         .put("/v1/tools/4ceda7b37085d444ec1bec64")
-        .set("Authorization", `Bearer ${login.body.token}`)
+        .set("Authorization", `Bearer ${adminToken}`)
         .send(updatedTool);
+      expect(resp.status).toEqual(200);
       expect(resp.body).toEqual(updatedTool);
     });
 
@@ -139,45 +108,40 @@ describe("Server", () => {
     });
 
     it("shouldn't delete the tool by id if the default user not is the creator", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userTwoCredentials);
       const resp = await request(server)
         .delete("/v1/tools/4ceda7b37085d444ec1bec65")
-        .set("Authorization", `Bearer ${login.body.token}`);
+        .set("Authorization", `Bearer ${userTwoToken}`);
       expect(resp.status).toEqual(403);
     });
 
     it("should delete the tool by id if the default user is the creator", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userTwoCredentials);
       const resp = await request(server)
         .delete("/v1/tools/4ceda7b37085d444ec1bec64")
-        .set("Authorization", `Bearer ${login.body.token}`);
+        .set("Authorization", `Bearer ${userTwoToken}`);
       expect(resp.status).toEqual(200);
+      expect(resp.body).toEqual({});
     });
 
     it("should delete the tool by id if the default user role is admin", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(adminCredentials);
       const resp = await request(server)
         .delete("/v1/tools/4ceda7b37085d444ec1bec65")
-        .set("Authorization", `Bearer ${login.body.token}`);
+        .set("Authorization", `Bearer ${adminToken}`);
       expect(resp.status).toEqual(200);
+      expect(resp.body).toEqual({});
     });
   });
 
   describe("Reviews path", () => {
+    const updatedReview = {
+      ...userReview,
+      comment: "Very cool"
+    };
     it("should create a new review", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userTwoCredentials);
       const resp = await request(server)
         .post("/v1/reviews")
-        .set("Authorization", `Bearer ${login.body.token}`)
+        .set("Authorization", `Bearer ${userTwoToken}`)
         .send(userReview);
+      expect(resp.status).toEqual(201);
       expect(resp.body).toEqual(userReview);
     });
 
@@ -185,6 +149,7 @@ describe("Server", () => {
       const resp = await request(server).get(
         "/v1/reviews/9ceda7b37085d444ec1bec99"
       );
+      expect(resp.status).toEqual(200);
       expect(resp.body).toEqual(userReview);
     });
 
@@ -192,6 +157,7 @@ describe("Server", () => {
       const resp = await request(server).get(
         "/v1/reviews/users/22ceda7b37085d444ec1bec2"
       );
+      expect(resp.status).toEqual(200);
       expect(resp.body).toEqual(userReview);
     });
 
@@ -199,14 +165,11 @@ describe("Server", () => {
       const resp = await request(server).get(
         "/v1/reviews/tools/4ceda7b37085d444ec1bec65"
       );
+      expect(resp.status).toEqual(200);
       expect(resp.body).toEqual(userReview);
     });
 
     it("shouldn't update review if user don't logged in", async () => {
-      const updatedReview = {
-        ...userReview,
-        comment: "Very cool"
-      };
       const resp = await request(server)
         .put("/v1/reviews/9ceda7b37085d444ec1bec99")
         .send(updatedReview);
@@ -214,69 +177,62 @@ describe("Server", () => {
     });
 
     it("should default user update only your reviews", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userOneCredentials);
-      const updatedReview = {
-        ...userReview,
-        comment: "Very cool"
-      };
       const resp = await request(server)
         .put("/v1/reviews/9ceda7b37085d444ec1bec99")
-        .set("Authorization", `Bearer ${login.body.token}`)
+        .set("Authorization", `Bearer ${userOneToken}`)
         .send(updatedReview);
       expect(resp.status).toEqual(403);
     });
 
     it("should default user update your reviews", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userTwoCredentials);
-      const updatedReview = {
-        ...userReview,
-        comment: "Very cool"
-      };
       const resp = await request(server)
         .put("/v1/reviews/9ceda7b37085d444ec1bec99")
-        .set("Authorization", `Bearer ${login.body.token}`)
+        .set("Authorization", `Bearer ${userTwoToken}`)
         .send(updatedReview);
       expect(resp.status).toEqual(200);
+      expect(resp.body).toEqual(updatedReview);
     });
 
     it("should default user delete only your reviews", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userOneCredentials);
       const resp = await request(server)
         .delete("/v1/reviews/9ceda7b37085d444ec1bec99")
-        .set("Authorization", `Bearer ${login.body.token}`);
+        .set("Authorization", `Bearer ${userOneToken}`);
       expect(resp.status).toEqual(403);
     });
 
     it("should delete review by id", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userTwoCredentials);
       const resp = await request(server)
         .delete("/v1/reviews/9ceda7b37085d444ec1bec99")
-        .set("Authorization", `Bearer ${login.body.token}`);
+        .set("Authorization", `Bearer ${userTwoToken}`);
+      expect(resp.status).toEqual(200);
       expect(resp.body).toEqual({});
     });
   });
 
   describe("Users path", () => {
+    const userThree = { ...defaultUserThree };
+    delete userThree.password;
+    const updatedUser = {
+      ...defaultUserOne,
+      name: "user one"
+    };
+    const userOne = { ...updatedUser };
+    delete userOne.password;
+
     it("should create a new user", async () => {
       const resp = await request(server)
         .post("/v1/users/signup")
         .send(defaultUserThree);
       expect(resp.status).toEqual(201);
+      expect(resp.body).toEqual(userThree);
     });
 
     it("should gerate a token", async () => {
-      const login = await request(server)
+      const resp = await request(server)
         .post("/v1/users/login")
         .send(defaultUserThree);
-      expect(typeof login.body.token).toEqual("string");
+      expect(resp.status).toEqual(200);
+      expect(typeof resp.body.token).toEqual("string");
     });
 
     it("should filter user by id", async () => {
@@ -284,13 +240,10 @@ describe("Server", () => {
         "/v1/users/33ceda7b37085d444ec1bec3"
       );
       expect(resp.status).toEqual(200);
+      expect(resp.body).toEqual(userThree);
     });
 
     it("shouldn't update if user don't logged in", async () => {
-      const updatedUser = {
-        ...defaultUserThree,
-        name: "user three updated"
-      };
       const resp = await request(server)
         .put("/v1/users/33ceda7b37085d444ec1bec3")
         .send(updatedUser);
@@ -298,33 +251,20 @@ describe("Server", () => {
     });
 
     it("should default user update only your profile", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userThreeCredentials);
-      const updatedUser = {
-        ...defaultUserThree,
-        name: "user three updated"
-      };
       const resp = await request(server)
         .put("/v1/users/1ceda7b37085d444ec1bec11")
-        .set("Authorization", `Bearer ${login.body.token}`)
+        .set("Authorization", `Bearer ${userTwoToken}`)
         .send(updatedUser);
       expect(resp.status).toEqual(403);
     });
 
     it("should default user update your profile", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userOneCredentials);
-      const updatedUser = {
-        ...defaultUserOne,
-        name: "user one"
-      };
       const resp = await request(server)
         .put("/v1/users/1ceda7b37085d444ec1bec11")
-        .set("Authorization", `Bearer ${login.body.token}`)
+        .set("Authorization", `Bearer ${userOneToken}`)
         .send(updatedUser);
       expect(resp.status).toEqual(200);
+      expect(resp.body).toEqual(userOne);
     });
 
     it("shouldn't delete if user don't logged in", async () => {
@@ -335,32 +275,25 @@ describe("Server", () => {
     });
 
     it("should default user delete only your profile", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userTwoCredentials);
       const resp = await request(server)
         .delete("/v1/users/1ceda7b37085d444ec1bec11")
-        .set("Authorization", `Bearer ${login.body.token}`);
+        .set("Authorization", `Bearer ${userTwoToken}`);
       expect(resp.status).toEqual(403);
     });
 
     it("should default user delete your profile", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(userTwoCredentials);
       const resp = await request(server)
         .delete("/v1/users/22ceda7b37085d444ec1bec2")
-        .set("Authorization", `Bearer ${login.body.token}`);
+        .set("Authorization", `Bearer ${userTwoToken}`);
+      expect(resp.status).toEqual(200);
       expect(resp.body).toEqual({});
     });
 
     it("should admin user delete all profiles", async () => {
-      const login = await request(server)
-        .post("/v1/users/login")
-        .send(adminCredentials);
       const resp = await request(server)
         .delete("/v1/users/1ceda7b37085d444ec1bec11")
-        .set("Authorization", `Bearer ${login.body.token}`);
+        .set("Authorization", `Bearer ${adminToken}`);
+      expect(resp.status).toEqual(200);
       expect(resp.body).toEqual({});
     });
   });
