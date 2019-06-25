@@ -1,15 +1,18 @@
 const { Reviews, connectDatabase } = require("../src/database/index");
-const { databaseURL } = require("../src/config");
+const { databaseURLForTest } = require("../src/config");
 const { userReview } = require("../src/helpers/index");
 require("dotenv").config();
 
 describe("Reviews Model", () => {
   beforeAll(async () => {
-    await connectDatabase(databaseURL, "reviewsModelTest");
+    await connectDatabase(databaseURLForTest, "reviewsModelTest");
   });
 
   afterAll(async () => {
-    const database = await connectDatabase(databaseURL, "reviewsModelTest");
+    const database = await connectDatabase(
+      databaseURLForTest,
+      "reviewsModelTest"
+    );
     await database.dropDatabase();
   });
 

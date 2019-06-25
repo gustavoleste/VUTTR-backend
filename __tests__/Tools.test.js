@@ -1,15 +1,18 @@
 const { Tools, connectDatabase } = require("../src/database/index");
-const { databaseURL } = require("../src/config");
+const { databaseURLForTest } = require("../src/config");
 const { singleTool } = require("../src/helpers/index");
 require("dotenv").config();
 
 describe("Tools Model", () => {
   beforeAll(async () => {
-    await connectDatabase(databaseURL, "toolsModelTest");
+    await connectDatabase(databaseURLForTest, "toolsModelTest");
   });
 
   afterAll(async () => {
-    const database = await connectDatabase(databaseURL, "toolsModelTest");
+    const database = await connectDatabase(
+      databaseURLForTest,
+      "toolsModelTest"
+    );
     await database.dropDatabase();
   });
 

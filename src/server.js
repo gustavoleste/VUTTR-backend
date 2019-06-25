@@ -2,12 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const server = express();
-const auth = require("./rest/middlewares/authentication");
+const auth = require("./api/middlewares/authentication");
 const {
   toolsRouter,
   usersRouter,
   reviewsRouter
-} = require("./rest/routes/index");
+} = require("./api/routes/index");
 
 server
   .use(helmet())

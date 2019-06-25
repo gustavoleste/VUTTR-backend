@@ -16,7 +16,8 @@
     "supertest": "^4.0.2"
   },
   "scripts": {
-    "test": "jest --watchAll --collect-coverage"
+    "test": "jest --watchAll --collect-coverage",
+    "start":"nodemon index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

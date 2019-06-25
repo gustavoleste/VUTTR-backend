@@ -1,15 +1,18 @@
 const { Users, connectDatabase } = require("../src/database/index");
-const { databaseURL } = require("../src/config");
+const { databaseURLForTest } = require("../src/config");
 const { defaultUserOne } = require("../src/helpers/index");
 require("dotenv").config();
 
 describe("Users Model", () => {
   beforeAll(async () => {
-    await connectDatabase(databaseURL, "usersModelTest");
+    await connectDatabase(databaseURLForTest, "usersModelTest");
   });
 
   afterAll(async () => {
-    const database = await connectDatabase(databaseURL, "usersModelTest");
+    const database = await connectDatabase(
+      databaseURLForTest,
+      "usersModelTest"
+    );
     await database.dropDatabase();
   });
 

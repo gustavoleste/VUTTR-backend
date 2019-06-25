@@ -1,7 +1,7 @@
 require("dotenv").config();
 const request = require("supertest");
 const server = require("../src/server");
-const { databaseURL } = require("../src/config");
+const { databaseURLForTest } = require("../src/config");
 const {
   arrayOfTools,
   singleTool,
@@ -20,7 +20,7 @@ let userTwoToken;
 
 describe("Server", () => {
   beforeAll(async () => {
-    await connectDatabase(databaseURL, "testserver");
+    await connectDatabase(databaseURLForTest, "testserver");
     await Tools.insertMany(arrayOfTools);
     adminToken = await login(server, adminUser);
     userOneToken = await login(server, defaultUserOne);
@@ -28,7 +28,7 @@ describe("Server", () => {
   });
 
   afterAll(async () => {
-    const database = await connectDatabase(databaseURL, "testserver");
+    const database = await connectDatabase(databaseURLForTest, "testserver");
     await database.dropDatabase();
   });
 
