@@ -1,0 +1,466 @@
+openapi: 3.0.0
+info:
+  title: Very Useful Tools to Remember
+  description: Api rest for tools maniging
+  version: "1.0"
+servers:
+- url: http://localhost:3000
+paths:
+  /v1/users/signup:
+    post:
+      description: criar novo usuário
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body'
+      responses:
+        201:
+          description: New resource has been created
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    servers:
+    - url: http://localhost:3000
+  /v1/users/login:
+    post:
+      description: gerar token de autenticação
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body_1'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+      servers:
+      - url: http://localhost:3000
+    servers:
+    - url: http://localhost:3000
+  /v1/users/{userid}:
+    get:
+      description: pesquisar usuário por id
+      parameters:
+      - name: userid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    put:
+      description: editar umusuário
+      parameters:
+      - name: userid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body_2'
+      responses:
+        200:
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    delete:
+      description: deletar um usuário por id
+      parameters:
+      - name: userid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          example: 5d153f9ac1840d00b6506d46
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    servers:
+    - url: http://localhost:3000
+  /v1/tools:
+    get:
+      description: listar todas as ferramentas
+      parameters:
+      - name: tag
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+        example: node
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    post:
+      description: registrar uma nova ferramenta
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body_3'
+      responses:
+        201:
+          description: New resource has been created
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    servers:
+    - url: http://localhost:3000
+  /v1/tools/{toolid}:
+    get:
+      description: filtar por id
+      parameters:
+      - name: toolid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    put:
+      description: editar uma ferramenta
+      parameters:
+      - name: toolid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body_4'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    delete:
+      description: deletar uma ferramenta por id
+      parameters:
+      - name: toolid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+  /v1/reviews:
+    post:
+      description: criar um novo review
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body_5'
+      responses:
+        201:
+          description: New resource has been created
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    servers:
+    - url: http://localhost:3000
+  /v1/reviews/{reviewid}:
+    get:
+      description: filtar um review pelo id
+      parameters:
+      - name: reviewid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    put:
+      description: editar um review
+      parameters:
+      - name: reviewid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/body_6'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    delete:
+      description: Auto generated using Swagger Inspector
+      parameters:
+      - name: reviewid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    servers:
+    - url: http://localhost:3000
+  /v1/reviews/tools/{toolid}:
+    get:
+      description: listar os reviews de uma ferramenta
+      parameters:
+      - name: toolid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    servers:
+    - url: http://localhost:3000
+  /v1/reviews/users/{userid}:
+    get:
+      description: listar os reviews de um usuário
+      parameters:
+      - name: userid
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: string
+              examples: {}
+      servers:
+      - url: http://localhost:3000
+    servers:
+    - url: http://localhost:3000
+components:
+  schemas:
+    body_3:
+      type: object
+      properties:
+        link:
+          type: string
+          example: https://github.com/typicode/hotel
+        description:
+          type: string
+          example: Local app manager. Start apps within your browser, developer tool
+            with local .localhost domain and https out of the box
+        title:
+          type: string
+          example: hotel
+        user:
+          type: string
+          example: 5d14091ed4f691002e77e026
+        tags:
+          type: array
+          items:
+            type: string
+            example: node, organizing, webapps, domain, developer, https, proxy
+    body_4:
+      type: object
+      properties:
+        link:
+          type: string
+          example: https://github.com/typicode/hotel
+        description:
+          type: string
+          example: Local app manager. Start apps within your browser, developer tool
+            with local .localhost domain and https out of the box
+        title:
+          type: string
+          example: hotel
+        user:
+          type: string
+          example: 5d14091ed4f691002e77e026
+        tags:
+          type: array
+          items:
+            type: string
+            example: node, organizing, webapps, domain, developer, https, proxy, hotel
+    body_1:
+      type: object
+      properties:
+        password:
+          type: string
+          example: abc123
+        email:
+          type: string
+          example: luiz@email.com
+    body_2:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Luiz Gustavo
+    inline_response_200:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkMTQwOTFlZDRmNjkxMDAyZTc3ZTAyNiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNTYxNzI5OTQ0LCJleHAiOjE1NjE3MzM1NDR9.0D0lSnabCIpxVmR4DwMeF7Uc6ZJW3tDitSB2NFcOHcU"
+    body:
+      type: object
+      properties:
+        password:
+          type: string
+          example: abc123
+        name:
+          type: string
+          example: luiz
+        email:
+          type: string
+          example: luiz@email.com
+    body_5:
+      type: object
+      properties:
+        comment:
+          type: string
+          example: Very useful tool
+        user:
+          type: string
+          example: 5d14091ed4f691002e77e026
+        tool:
+          type: string
+          example: d15440dc1840d00b6506d48
+    body_6:
+      type: object
+      properties:
+        comment:
+          type: string
+          example: Very good and useful tool
+        user:
+          type: string
+          example: 5d14091ed4f691002e77e026
+        tool:
+          type: string
+          example: 5d15440dc1840d00b6506d48
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: http://yourauthurl.com
+          scopes:
+            scope_name: Enter your scopes here

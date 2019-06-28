@@ -1,5 +1,5 @@
 require("dotenv").config();
-const authentication = require("../src/api/middlewares/authentication");
+const authentication = require("../src/rest/middlewares/authentication");
 const jwt = require("jsonwebtoken");
 const { secretKey } = require("../src/config");
 const { defaultUserOne } = require("../src/helpers/index");
