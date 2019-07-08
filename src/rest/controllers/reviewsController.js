@@ -53,7 +53,7 @@ const updateReviewsByID = async (req, res) => {
 const filterReviewsByID = async (req, res) => {
   try {
     const params = getParams(req.params);
-    const review = await Reviews.findOne(params);
+    const review = await Reviews.find(params);
     return res.status(200).json(review);
   } catch (err) {
     return res.status(500).json({ err });

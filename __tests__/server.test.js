@@ -150,7 +150,7 @@ describe("Server", () => {
         "/v1/reviews/9ceda7b37085d444ec1bec99"
       );
       expect(resp.status).toEqual(200);
-      expect(resp.body).toEqual(userReview);
+      expect(resp.body).toEqual([userReview]);
     });
 
     it("should filter review by user id", async () => {
@@ -158,7 +158,7 @@ describe("Server", () => {
         "/v1/reviews/users/22ceda7b37085d444ec1bec2"
       );
       expect(resp.status).toEqual(200);
-      expect(resp.body).toEqual(userReview);
+      expect(resp.body).toEqual([userReview]);
     });
 
     it("should filter review by tool id", async () => {
@@ -166,7 +166,7 @@ describe("Server", () => {
         "/v1/reviews/tools/4ceda7b37085d444ec1bec65"
       );
       expect(resp.status).toEqual(200);
-      expect(resp.body).toEqual(userReview);
+      expect(resp.body).toEqual([userReview]);
     });
 
     it("shouldn't update review if user don't logged in", async () => {
