@@ -12,7 +12,6 @@ Aplicação para gerenciamento de ferramentas.
 - Docker
 - Jest
 - JWT
-- Graphql
 
 ## Instalação
 
